@@ -2,12 +2,32 @@
 layout: default
 ---
 
+{% assign generated_css_rules = '' %}
+
 {% assign render_navigation_above = false %}
 {% assign render_navigation_below = true %}
 {% assign render_comments = true %}
 {% assign render_title_above = false %}
 {% assign render_title_below = true %}
 {% assign render_content = true %}
+{% assign post_content = content %} 
 {% assign post = page %}
-{% include a_comic.html %}
 
+<div id="container">
+<!--<div class="kindleWidget" style="display:inline-block;padding:3px;cursor:pointer;font-size:11px;font-family:Arial;white-space:nowrap;line-height:1;border-radius:3px;border:#ccc thin solid;color:black;background:transparent url('https://d1xnn692s7u6t6.cloudfront.net/button-gradient.png') repeat-x;background-size:contain;"><img style="vertical-align:middle;margin:0;padding:0;border:none;" src="https://d1xnn692s7u6t6.cloudfront.net/white-15.png" /><span style="vertical-align:middle;margin-left:3px;">Send to Kindle</span></div>
+-->
+{% include subscribe.html %}
+{% include a_comic.html %}
+</div>
+
+<!--
+<script type="text/javascript" src="https://d1xnn692s7u6t6.cloudfront.net/widget.js"></script>
+<script type="text/javascript">(function k(){window.$SendToKindle&&window.$SendToKindle.Widget?$SendToKindle.Widget.init({"content":".post"}):setTimeout(k,500);})();</script>
+-->
+
+<!-- Push generated CSS rules to the HEAD tag -->
+<script>
+  $(document).ready(function() {
+    $("<style type='text/css'>{{ generated_css_rules | strip_newlines }}</style>").prependTo("head");
+  });
+</script>

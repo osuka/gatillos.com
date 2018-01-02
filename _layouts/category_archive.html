@@ -1,0 +1,158 @@
+---
+layout: default
+---
+
+{% assign generated_css_rules = '' %}
+
+<div id="container">
+
+  {% include subscribe.html %}
+
+  <header>   
+    <h1><a class="fadedlink" href="{{ site.baseurl }}/" title="Home">gatillos &laquo;</a> {{ page.category }} archive</h1>
+  </header>
+
+  <nav>
+    <ul class="clearfix">
+    {% for category in page.categories %}
+    <li><a href="{{ site.baseurl }}/tag/{{ category }}.html">{{ category }}</a></li>
+    {% endfor %}
+    </ul>
+  </nav>
+
+  <div class="archive">
+
+    {% for post in page.posts %}
+      {% assign render_navigation_above = false %}
+      {% assign render_navigation_below = false %}
+      {% assign render_comments = false %}
+      {% if post.categories[1] != 'lifeinterior' %}
+        {% assign render_title_above = true %}
+        {% assign render_title_below = false %}
+        {% assign render_comment_count = true %}
+      {% else %}
+        {% assign render_title_above = false %}
+        {% assign render_title_below = false %}
+      {% endif %}
+      {% if post.categories[0] == 'blog' %}
+        {% assign render_content = true %}
+      {% else %}
+        {% assign render_content = false %}
+      {% endif %}
+      {% include a_comic.html %}
+    {% endfor %}
+
+  </div>
+
+  {% if paginator.total_pages > 1 %}
+  <nav class="pagination">
+      
+      {% if paginator.previous_page %}
+          {% if paginator.previous_page == 1 %}
+              <span class="prev"><a href="{{ site.baseurl }}/{{paginator.posts[0].categories[0]}}/" rel="prev">Previous</a></span>
+          {% else %}
+              <span class="prev"><a href="{{ site.baseurl }}/{{paginator.posts[0].categories[0]}}/page{{paginator.previous_page}}" rel="prev">Previous</a></span>
+          {% endif %}
+      {% endif %}
+      
+      {% for page in (1..paginator.total_pages) %}
+      
+          {% if page == paginator.page %}
+              <span class="page current">{{ page }}</span>
+          {% else %}
+              {% if page == 1 %}
+                  <span class="page"><a href="{{ site.baseurl }}/{{paginator.posts[0].categories[0]}}/">{{ page }}</a></span>
+              {% else %}
+                  <span class="page"><a href="{{ site.baseurl }}/{{paginator.posts[0].categories[0]}}/page{{page}}">{{ page }}</a></span>
+              {% endif %}
+          {% endif %}
+      
+      {% endfor %}
+
+      {% if paginator.next_page %}
+          <span class="next"><a href="{{ site.baseurl }}/{{paginator.posts[0].categories[0]}}/page{{paginator.next_page}}" rel="next">Next</a></span>
+      {% endif %}
+      
+  </nav>
+  {% endif %}
+
+</div>
+
+
+<script>
+$(document).ready( function() {
+  /* ***************************************************************** */
+  /**
+   * author Remy Sharp
+   * url http://remysharp.com/2009/01/26/element-in-view-event-plugin/
+   *
+   * Pending: consider the following for iOS:
+   *     http://menacingcloud.com/?c=viewportScale
+   */
+  function getViewportHeight() {
+      var height = window.innerHeight; // Safari, Opera
+      var mode = document.compatMode;
+
+      if ( (mode || !$.support.boxModel) ) { // IE, Gecko
+          height = (mode == 'CSS1Compat') ?
+          document.documentElement.clientHeight : // Standards
+          document.body.clientHeight; // Quirks
+      }
+
+      return height;
+  }
+
+  $(window).scroll(function () {
+      var vpH = getViewportHeight(),
+          scrolltop = (document.documentElement.scrollTop ?
+              document.documentElement.scrollTop :
+              document.body.scrollTop),
+          elems = [];
+      
+          $(".comic_image img").filter(':visible').each(function () {
+              var $el = $(this),
+                  top = $el.offset().top,
+                  height = $el.height(),
+                  inview = $el.data('inview') || false;
+              
+                if( top < scrolltop + vpH && top + height > scrolltop ) {
+                    if (!inview) {
+                      // fire event if element is visible
+                        $el.data('inview', true);
+                        $el.trigger('inview', [ true ]);
+                    }
+                }
+          });
+  });
+
+  /* ***************************************************************** */
+ 
+  // disable all page IMG elements so they don't load
+  $(".comic_image img").each(function(index, img) {
+    var src = img["src"];
+    img["data-savedsrc"] = src; // save source
+    img["src"] = "{{ site.baseurl }}/gfx/white-pixel.png";
+  });
+  
+  // above trigger is a fallback, we use also a scroll listener to detect elements in viewport
+
+  $(".post").bind('inview', function(post) {
+    jQuery("img", this).filter(':visible').each(function(index, img) {
+      var oldsrc = img["data-savedsrc"];
+      if( oldsrc ) {
+        img["src"] = oldsrc;  // restore source
+        $(img).toggle();
+        $(img).fadeIn(1000,function() {});
+      }
+    });
+  });
+
+  // Push generated CSS rules to the HEAD tag
+  $("<style type='text/css'>{{ generated_css_rules | strip_newlines }}</style>").prependTo("head");
+
+  // kick the event to pick up any elements already in view.
+  // note however, this only works if the plugin is included after the elements are bound to 'inview'
+  $(window).scroll();
+});
+
+</script>

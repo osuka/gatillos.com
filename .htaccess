@@ -1,0 +1,150 @@
+Options -Indexes
+
+RewriteEngine on
+
+RewriteCond %{HTTPS} !=on
+# This checks to make sure the connection is not already HTTPS
+
+#RewriteRule ^/?(.*) https://%{SERVER_NAME}/$1 [R,L]
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# This rule will redirect users from their original location, to the same location but using HTTPS.
+# i.e.  http://www.example.com/foo/ to https://www.example.com/foo/
+# The leading slash is made optional so that this will work either in httpd.conf
+# or .htaccess context
+
+# REDIRECT DOMAINS
+#RewriteCond %{HTTP_HOST} !^gatillos\.com [NC]
+#RewriteCond %{HTTP_HOST} !^gatillos\.osuka [NC]
+#RewriteCond %{QUERY_STRING} ^(.*)$
+#RewriteRule ^(.*)$ https://gatillos.com/$1?%1 [R=301,L]
+# END redirects
+
+# Add a header to tell originating host
+# UNCOMENT the following lines on production
+#PassEnv HOSTNAME
+#
+
+#RewriteCond %{QUERY_STRING} ^/$
+#RewriteCond %{REQUEST_FILENAME} !robots.txt$
+#RewriteRule .*   /yay/index.php [R=301,L]
+#
+#RewriteCond %{QUERY_STRING} ^$
+#RewriteCond %{REQUEST_FILENAME} !robots.txt$
+#RewriteRule .*   /yay/index.php [R=301,L]
+
+# Front controller for wordpress
+#RewriteCond %{REQUEST_FILENAME}         !\.(css|js|gif|png|jpe?g|ico)$
+#RewriteCond %{REQUEST_FILENAME}         !robots.txt$
+#RewriteCond %{REQUEST_FILENAME}         !-f
+#RewriteCond %{REQUEST_FILENAME}         !-d
+#RewriteRule .*                      /oldyay/index.php [R=301,L]
+
+Redirect /index.html /yay/
+Redirect /atom.xml /yay/atom.xml
+Redirect /yay/feed/ /yay/atom.xml
+Redirect /yay/feed /yay/atom.xml
+
+
+# migrated threads
+Redirect permanent /yay/2010/03/10/could-this-be-my-first-panel/ /yay/2010/03/11/could-this-be-my-first-panel/
+Redirect permanent /yay/2010/03/11/well-still-with-the-same-page/ /yay/2010/03/12/well-still-with-the-same-page/
+Redirect permanent /yay/2010/03/14/so-is-this-a-webcomic/ /yay/2010/03/15/so-is-this-a-webcomic/
+Redirect permanent /yay/2010/03/18/first-page-for-lifeinterior/ /yay/2010/03/19/first-page-for-lifeinterior/
+Redirect permanent /yay/2010/03/27/blog-new-site-layout-drafts-uk-webcomic-thing/ /yay/2010/03/28/blog-new-site-layout-drafts-uk-webcomic-thing/
+Redirect permanent /yay/2010/04/20/blog-cherchez-la-femme/ /yay/2010/04/21/blog-cherchez-la-femme/
+Redirect permanent /yay/2010/06/15/blog-understanding-comics/ /yay/2010/06/16/blog-understanding-comics/
+Redirect permanent /yay/2010/06/30/blog-i-will-update/ /yay/2010/07/01/blog-i-will-update/
+Redirect permanent /yay/2010/07/05/blog-looking-for-ana/ /yay/2010/07/06/blog-looking-for-ana/
+Redirect permanent /yay/2010/07/13/blog-looking-for-ana-a-bit-more/ /yay/2010/07/14/blog-looking-for-ana-a-bit-more/
+Redirect permanent /yay/archive/today/ /yay/2010/05/16/today/
+Redirect permanent /yay/archive/lifeinterior-childhood-1/ /yay/2010/04/04/lifeinterior-childhood-1/
+Redirect permanent /yay/archive/lifeinterior-childhood-2/ /yay/2010/04/18/lifeinterior-childhood-2/
+Redirect permanent /yay/archive/lifeinterior-childhood-3/ /yay/2010/04/26/lifeinterior-childhood-3/
+Redirect permanent /yay/archive/lifeinterior-childhood-4/ /yay/2010/05/03/lifeinterior-childhood-4/
+Redirect permanent /yay/archive/lifeinterior-therapy-1/ /yay/2010/05/08/lifeinterior-therapy-1/
+Redirect permanent /yay/archive/lifeinterior-therapy-2/ /yay/2010/05/26/lifeinterior-therapy-2/
+Redirect permanent /yay/archive/lifeinterior-therapy-3/ /yay/2010/05/27/lifeinterior-therapy-3/
+Redirect permanent /yay/archive/lifeinterior-therapy-4/ /yay/2010/06/06/lifeinterior-therapy-4/
+Redirect permanent /yay/archive/lifeinterior-therapy-5/ /yay/2010/06/12/lifeinterior-therapy-5/
+Redirect permanent /yay/archive/lifeinterior-therapy-6/ /yay/2010/06/14/lifeinterior-therapy-6/
+Redirect permanent /yay/archive/lifeinterior-therapy-7/ /yay/2010/07/02/lifeinterior-therapy-7/
+Redirect permanent /yay/archive/lifeinterior-therapy-8/ /yay/2010/07/04/lifeinterior-therapy-8/
+Redirect permanent /yay/archive/lifeinterior-ana-1/ /yay/2010/07/14/lifeinterior-ana-1/
+Redirect permanent /yay/archive/lifeinterior-ana-2/ /yay/2010/07/28/lifeinterior-ana-2/
+Redirect permanent /yay/archive/3-panel-comic-isa-the-intern/ /yay/2010/07/31/3-panel-comic-isa-the-intern/
+Redirect permanent /yay/archive/lifeinterior-ana-3/ /yay/2010/08/02/lifeinterior-ana-3/
+Redirect permanent /yay/archive/lifeinterior-ana-4/ /yay/2010/08/18/lifeinterior-ana-4/
+Redirect permanent /yay/archive/3-panel-comic-isa-the-intern-2/ /yay/2010/08/21/3-panel-comic-isa-the-intern-2/
+Redirect permanent /yay/archive/lifeinterior-ana-5/ /yay/2010/08/22/lifeinterior-ana-5/
+Redirect permanent /yay/archive/tiny-little-tragedies/ /yay/2010/09/04/tiny-little-tragedies/
+Redirect permanent /yay/archive/dangling-comments/ /yay/2010/09/11/dangling-comments/
+Redirect permanent /yay/archive/lifeinterior-ana-6/ /yay/2010/09/20/lifeinterior-ana-6/
+Redirect permanent /yay/archive/lifeinterior-therapy-9/ /yay/2010/07/06/lifeinterior-therapy-9/
+Redirect permanent /yay/archive/lifeinterior-ana-2-bis/ /yay/2010/07/29/lifeinterior-ana-2-bis/
+Redirect permanent /yay/archive/lifeinterior-ana-3-bis/ /yay/2010/08/02/lifeinterior-ana-3-bis/
+Redirect permanent /yay/archive/lifeinterior-cat-1/ /yay/2010/10/04/lifeinterior-cat-1/
+Redirect permanent /yay/archive/lifeinterior-cat-2/ /yay/2010/10/04/lifeinterior-cat-2/
+Redirect permanent /yay/archive/3-panel-comic-isa-the-intern-3/ /yay/2010/10/16/3-panel-comic-isa-the-intern-3/
+Redirect permanent /yay/archive/lifeinterior-cat-3/ /yay/2010/10/17/lifeinterior-cat-3/
+Redirect permanent /yay/archive/3-panel-comic-isa-the-intern-4/ /yay/2010/10/18/3-panel-comic-isa-the-intern-4/
+Redirect permanent /yay/archive/lifeinterior-cat-4/ /yay/2010/10/20/lifeinterior-cat-4/
+Redirect permanent /yay/archive/lifeinterior-cat-5/ /yay/2010/10/25/lifeinterior-cat-5/
+Redirect permanent /yay/archive/lifeinterior-cat-6/ /yay/2010/11/01/lifeinterior-cat-6/
+Redirect permanent /yay/archive/lifeinterior-cat-7/ /yay/2010/11/07/lifeinterior-cat-7/
+Redirect permanent /yay/archive/lifeinterior-in-custody-1/ /yay/2010/11/12/lifeinterior-in-custody-1/
+Redirect permanent /yay/archive/lifeinterior-in-custody-2/ /yay/2010/11/21/lifeinterior-in-custody-2/
+Redirect permanent /yay/archive/lifeinterior-in-custody-3/ /yay/2010/11/28/lifeinterior-in-custody-3/
+Redirect permanent /yay/archive/lifeinterior-in-custody-4/ /yay/2010/12/08/lifeinterior-in-custody-4/
+Redirect permanent /yay/archive/lifeinterior-in-custody-5/ /yay/2010/12/12/lifeinterior-in-custody-5/
+Redirect permanent /yay/archive/lifeinterior-in-custody-6/ /yay/2010/12/20/lifeinterior-in-custody-6/
+Redirect permanent /yay/archive/lifeinterior-in-custody-7/ /yay/2010/12/26/lifeinterior-in-custody-7/
+Redirect permanent /yay/archive/lifeinterior-in-custody-8/ /yay/2011/01/02/lifeinterior-in-custody-8/
+Redirect permanent /yay/archive/lifeinterior-in-custody-9/ /yay/2011/01/09/lifeinterior-in-custody-9/
+Redirect permanent /yay/archive/lifeinterior-in-custody-10/ /yay/2011/01/16/lifeinterior-in-custody-10/
+Redirect permanent /yay/archive/paul-the-innovator/ /yay/2011/01/23/paul-the-innovator/
+Redirect permanent /yay/archive/lifeinterior-in-custody-11/ /yay/2011/01/23/lifeinterior-in-custody-11/
+Redirect permanent /yay/archive/paul-the-innovator-2/ /yay/2011/01/26/paul-the-innovator-2/
+Redirect permanent /yay/archive/lifeinterior-in-custody-12/ /yay/2011/01/30/lifeinterior-in-custody-12/
+Redirect permanent /yay/archive/paul-the-innovator-3-paul-needs-developers/ /yay/2011/01/31/paul-the-innovator-3-paul-needs-developers/
+Redirect permanent /yay/archive/paul-the-innovator-4/ /yay/2011/02/04/paul-the-innovator-4/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-1/ /yay/2011/02/04/lifeinterior-the-ghost-of-ana-1/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-2/ /yay/2011/02/13/lifeinterior-the-ghost-of-ana-2/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-3/ /yay/2011/02/20/lifeinterior-the-ghost-of-ana-3/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-4/ /yay/2011/02/27/lifeinterior-the-ghost-of-ana-4/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-5/ /yay/2011/03/06/lifeinterior-the-ghost-of-ana-5/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-6/ /yay/2011/03/13/lifeinterior-the-ghost-of-ana-6/
+Redirect permanent /yay/archive/paul-the-innovator-5-the-collaborative-site/ /yay/2011/03/19/paul-the-innovator-5-the-collaborative-site/
+Redirect permanent /yay/archive/hold-on/ /yay/2011/03/25/hold-on/
+Redirect permanent /yay/archive/paul-the-innovator-6-the-new-hire/ /yay/2011/04/15/paul-the-innovator-6-the-new-hire/
+Redirect permanent /yay/archive/lifeinterior-the-ghost-of-ana-7/ /yay/2011/04/16/lifeinterior-the-ghost-of-ana-7/
+Redirect permanent /yay/archive/lifeinterior-miss-you-1/ /yay/2011/04/23/lifeinterior-miss-you-1/
+Redirect permanent /yay/archive/lifeinterior-miss-you-2/ /yay/2011/05/02/lifeinterior-miss-you-2/
+Redirect permanent /yay/archive/lifeinterior-miss-you-3/ /yay/2011/05/14/lifeinterior-miss-you-3/
+Redirect permanent /yay/archive/lifeinterior-miss-you-4/ /yay/2011/05/21/lifeinterior-miss-you-4/
+Redirect permanent /yay/archive/lifeinterior-miss-you-5/ /yay/2011/06/03/lifeinterior-miss-you-5/
+Redirect permanent /yay/archive/lifeinterior-miss-you-6/ /yay/2011/06/17/lifeinterior-miss-you-6/
+Redirect permanent /yay/archive/lifeinterior-miss-you-7/ /yay/2011/07/09/lifeinterior-miss-you-7/
+Redirect permanent /yay/archive/paul-the-innovator-7-the-first-version/ /yay/2011/07/23/paul-the-innovator-7-the-first-version/
+Redirect permanent /yay/archive/lifeinterior-miss-you-8/ /yay/2011/08/12/lifeinterior-miss-you-8/
+Redirect permanent /yay/archive/lifeinterior-miss-you-9/ /yay/2011/08/24/lifeinterior-miss-you-9/
+Redirect permanent /yay/archive/paul-the-innovator-8-the-acquisition/ /yay/2011/08/27/paul-the-innovator-8-the-acquisition/
+Redirect permanent /yay/archive/lifeinterior-miss-you-10-epilogue/ /yay/2011/08/30/lifeinterior-miss-you-10-epilogue/
+Redirect permanent /yay/archive/paul-the-innovator-9-the-reorganization/ /yay/2011/09/09/paul-the-innovator-9-the-reorganization/
+Redirect permanent /yay/archive/paul-the-innovator-10-the-survey/ /yay/2011/09/13/paul-the-innovator-10-the-survey/
+Redirect permanent /yay/archive/paul-the-innovator-11-travel-economics/ /yay/2011/09/16/paul-the-innovator-11-travel-economics/
+Redirect permanent /yay/archive/paul-the-innovator-12-the-announcement-speech/ /yay/2011/09/29/paul-the-innovator-12-the-announcement-speech/
+Redirect permanent /yay/archive/paul-the-innovator-13-adding-user-experience/ /yay/2011/10/02/paul-the-innovator-13-adding-user-experience/
+Redirect permanent /yay/archive/paul-the-innovator-14-the-network-operations-center/ /yay/2011/10/10/paul-the-innovator-14-the-network-operations-center/
+Redirect permanent /yay/archive/paul-the-innovator-15-the-terms-and-conditions/ /yay/2011/10/18/paul-the-innovator-15-the-terms-and-conditions/
+Redirect permanent /yay/archive/paul-the-innovator-16-office-party/ /yay/2011/10/25/paul-the-innovator-16-office-party/
+Redirect permanent /yay/archive/paul-the-innovator-17-the-great-escape/ /yay/2011/11/13/paul-the-innovator-17-the-great-escape/
+Redirect permanent /yay/archive/paul-the-innovator-18-the-escape-continues/ /yay/2011/11/18/paul-the-innovator-18-the-escape-continues/
+Redirect permanent /yay/archive/paul-the-innovator-19-flying-monkeys-with-laser-beams/ /yay/2011/11/23/paul-the-innovator-19-flying-monkeys-with-laser-beams/
+Redirect permanent /yay/archive/paul-the-innovator-20-fatal-distractions/ /yay/2011/12/01/paul-the-innovator-20-fatal-distractions/
+Redirect permanent /yay/archive/paul-the-innovator-21-it-stampede/ /yay/2011/12/04/paul-the-innovator-21-it-stampede/
+Redirect permanent /yay/archive/paul-the-innovator-22-time-to-leave/ /yay/2011/12/17/paul-the-innovator-22-time-to-leave/
+Redirect permanent /yay/archive/paul-the-innovator-23-figuring-it-out/ /yay/2011/12/22/paul-the-innovator-23-figuring-it-out/
+Redirect permanent /yay/archive/paul-the-innovator-24-text-to-speech/ /yay/2012/01/22/paul-the-innovator-24-text-to-speech/
+
+

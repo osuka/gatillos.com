@@ -10,9 +10,25 @@
   <title>{{ site.title }}</title>
   <meta name="description" content="{{ site.title }}">
   <meta name="author" content="{{ site.author }}">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  {% if page.image %}
+    {% if page.facebookthumbnail %}
+      <meta property="og:image" content="{{ site.url_root }}{{ page.facebookthumbnail }}">
+    {% else %}
+      <meta property="og:image" content="{{ site.url_root }}{{ page.image }}">
+    {% endif %}
+  {% else %}
+    <meta property="og:image" content="{{ site.url_root_nossl }}{{ site.baseurl }}/gfx/site/2012-06-header-gato_hi.png">
+  {% endif %}
 
-  <link href="http://feeds.feedburner.com/{{ site.feedburner_id }}" rel="alternate" title="{{ site.title }}" type="application/atom+xml">
+  {% if page.title %}
+    <meta property="og:title" content="{{ page.title }}">
+  {% else %}
+    <meta property="og:title" content="gatillos.com - gun-toting kittens">
+  {% endif %}
+
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1">-->
+
+  <link href="//feeds.feedburner.com/{{ site.feedburner_id }}" rel="alternate" title="{{ site.title }}" type="application/atom+xml">
   <link rel="author" href="/humans.txt">
 
   <link rel="stylesheet" href="{{ site.baseurl }}/css/style.css">
@@ -23,14 +39,13 @@
        font-family: 'Sunshiney', cursive;
       others to be considered...  font-family: 'Patrick Hand', cursive; font-family: 'Gochi Hand', cursive; font-family: 'Schoolbell', cursive;
   --> 
-  <link href="http://fonts.googleapis.com/css?family=Sunshiney|Gochi+Hand&subset=latin,latin-ext" rel='stylesheet' type='text/css'>
+  <link href="//fonts.googleapis.com/css?family=Sunshiney|Gochi+Hand&subset=latin,latin-ext" rel='stylesheet' type='text/css'>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script src="{{ site.baseurl }}/js/libs/modernizr-2.0.6.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <script src="{{ site.baseurl }}/js/libs/modernizr-2.5.3.min.js"></script>
 </head>
 
 <body>
-
   <div id="header">
 	  <div id="logo">
       <a href="{{ site.baseurl }}/"></a>
@@ -42,38 +57,54 @@
 	  	<h1 class="title">Gatillos</h1>
 	  	<h2 class="subtitle">gun-toting kittens (temporarily)</h2>
 	  </div>
-  </div>
-
-  <div id="container">
-
-    <div id="subscribe">
-      <h3><a class="fadedlink" href="http://feeds.feedburner.com/{{ site.feedburner_id }}" title="RSS feed"><img src="{{ site.baseurl }}/gfx/site/rss.png" alt="RSS feed"/>Subscribe</a></h3>
+    <div class="mainlinks">
+      <ul>
+        <li><a href="{{ site.baseurl }}/lifeinterior/">LIFE/interior</a></li>
+        <li><a href="{{ site.baseurl }}/paul/">Paul the innovator</a></li>
+        <li><a href="{{ site.baseurl }}/3panelcomic/">Other stuff</a></li>
+      </ul>
     </div>
-
-    
-    {{ content }}
-    
-    <footer>
-      <span>{{ site.author }}</span>
-      <a class="fadedlink" href="https://github.com/{{ site.author_short }}"><img src="{{ site.baseurl }}/gfx/github-logo.png" alt="@github"></a>
-      <a class="fadedlink" href="https://twitter.com/{{ site.author_short }}"><img src="{{ site.baseurl }}/gfx/twitter-logo.png" alt="@twitter"></a>
-      <a class="fadedlink" href="mailto:{{ site.author_email }}"><img src="{{ site.baseurl }}/gfx/gmail-logo.png" alt="@gmail"></a>
-      <a class="fadedlink" rel="license" href="http://creativecommons.org/licenses/by-nd/3.0/"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-nd/3.0/88x31.png"></a>
-        <div id="boilerplate">
-        Gatillos Comics 
-         <a class="fadedlink" xmlns:cc="http://creativecommons.org/ns#" href="http://creativecommons.org/licenses/by-nd/3.0/" property="cc:attributionName" rel="cc:attributionURL">Oscar Amat</a>
-        is licensed under a <a class="fadedlink" rel="license" href="http://creativecommons.org/licenses/by-nd/3.0/">Creative Commons Attribution-NoDerivs 3.0 Unported License.</a>
-        Permissions beyond the scope of this license may be available at request.
-        </div>
-
-    </footer>
   </div>
+
+  {{ content }}
+
+  <footer>
+    <!-- this is bit is to have an easy way to test that multi language detection is working -->
+    <span class='multilingual'>
+      <span class="en">&nbsp;| English</span>
+      <span class="es">&nbsp; | Español</span>
+      <span class="ca">&nbsp; | Català</span>
+    </span>
+    <span>&nbsp;| {{ site.author }}</span>
+    <a class="fadedlink" href="https:////github.com/{{ site.author_short }}"><img src="{{ site.baseurl }}/gfx/github-logo.png" alt="@github" width="25px" height="25px"></a>
+    <a class="fadedlink" href="https://twitter.com/{{ site.author_short }}"><img src="{{ site.baseurl }}/gfx/twitter-logo.png" alt="@twitter" width="25px" height="25px"></a>
+    <a class="fadedlink" href="https://facebook.com/gatilloscom"><img src="{{ site.baseurl }}/gfx/site/facebook-logo-24x24.png" width="24px" height="24px" alt="Facebook page"></a>
+    <a class="fadedlink" href="mailto:{{ site.author_email }}"><img src="{{ site.baseurl }}/gfx/gmail-logo.png" alt="@gmail" width="25px" height="25px"></a>
+    <a class="fadedlink" rel="license" href="https://creativecommons.org/licenses/by-nd/3.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nd/3.0/88x31.png"  width="88px" height="31px"></a>
+      <div id="boilerplate">
+      Gatillos Comics 
+       <a class="fadedlink" xmlns:cc="https://creativecommons.org/ns#" href="https://creativecommons.org/licenses/by-nd/3.0/" property="cc:attributionName" rel="cc:attributionURL">Oscar Amat</a>
+      is licensed under a <a class="fadedlink" rel="license" href="https://creativecommons.org/licenses/by-nd/3.0/">Creative Commons Attribution-NoDerivs 3.0 Unported License.</a>
+      Permissions beyond the scope of this license may be available at request.
+      <span>Some icons by <a href="https://ipapun.deviantart.com/">ipanum</a></span>
+      </div>
+  </footer>
   
+  <div id="fb-root"></div>
+
+
   <script>
-    window._gaq = [['_setAccount','{{ site.analytics_ua }}'],['_trackPageview'],['_trackPageLoadTime']];
-    Modernizr.load({
-      load: ('https:' == location.protocol ? '//ssl' : '//www') + '.google-analytics.com/ga.js'
-    });
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '{{ site.analytics_ua }}']);
+    _gaq.push(['_trackPageview']);
+    _gaq.push(['_trackPageLoadTime']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true; 
+
+      ga.src = 'https://stats.g.doubleclick.net/dc.js';
+
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
   </script>
 
   <!--[if lt IE 7 ]>
@@ -81,32 +112,157 @@
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
 
-
 <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = '{{ site.disqus_id }}'; // required: replace example with your forum shortname
+      
+      /* jquery Fallback */
+      window.jQuery || document.write("<script src='{{ site.baseurl }}/js/libs/jquery-1.7.2.min.js'>\x3C/script>");
 
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-</script>
+      /* Language detection */
+      /* I'm using https://ajaxhttpheaders2.appspot.com/?callback= from this guy https://blog.dansingerman.com/post/909213798/detecting-a-browsers-language-in-javascript */
+      /* That's a lot of trust, but since I don't have any backend at all, what's the worst that could happen...? */
 
-<script type="text/javascript">
-      /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+      var gatillos = {};
+
+      gatillos.cookies = {};
+
+      gatillos.cookies.setCookie = function (name,value,days) {
+        if (days) {
+          var date = new Date();
+          date.setTime(date.getTime()+(days*24*60*60*1000));
+          var expires = "; expires="+date.toGMTString();
+        }
+        else var expires = "";
+        if( location && location.protocol === 'https:' ) {
+          secure = "; secure";
+        } else {
+          secure = "";
+        }
+        document.cookie = name+"="+value+expires+"; path=/" + secure;
+      }
+
+      gatillos.cookies.getCookie = function(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+          var c = ca[i];
+          while (c.charAt(0)==' ') c = c.substring(1,c.length);
+          if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return undefined;
+      }
+
+      gatillos.cookies.deleteCookie = function (name) {
+        gatillos.cookies.setCookie(name,"",-1);
+      }
+
+      gatillos.setlang = function(lang_two_chars, reload) {
+        $('html').removeClass('lang_en');
+        $('html').removeClass('lang_es');
+        $('html').removeClass('lang_ca');
+        $('html').addClass('lang_' + lang_two_chars);
+        gatillos.cookies.setCookie('forcelang', lang_two_chars, 365);
+        if( reload ) window.location.reload();
+      }
+
+      // Detect and Add lang_en, lang_en_GB, lang_en_US, etc with all the languages accepted
+      var language;
+      if( gatillos.cookies.getCookie('forcelang') ) {
+        // at some point we chose a language, stick with it
+        gatillos.setlang(gatillos.cookies.getCookie('forcelang'));
+      } else {
+        // Detect by calling a simple service that parses the headers as browser lang is unreliable
+        $.ajax({ 
+            url: "https://ajaxhttpheaders.appspot.com", 
+            dataType: 'jsonp', 
+            success: function(headers) {
+                var language = headers['Accept-Language'];
+                var foundone;
+                /* example: 'Accept-Language': 'en-US,en;q=0.8' */
+                if(language) {
+                  var pos = language.indexOf(';');
+                  if( pos != -1 ) {
+                    language = language.substring(0, pos); // remove everything up until the first ';'
+                  }
+                  var languages = language.split(',');
+                  for(var i=0; i<languages.length; i++) {
+                    // $('html').addClass('lang_'+languages[i]);
+
+                    // remember it if it's one the languages we support right now
+                    if( languages[i].indexOf('es') == 0 || languages[i].indexOf('ca') == 0 || languages[i].indexOf('en') == 0 ) {
+                      var twodigit = languages[i].substring(0,2);
+                      gatillos.setlang(twodigit);
+                      foundone = twodigit;
+                    }
+                  }
+                }
+
+                // if it didn't find any language, set it as english
+                if( !foundone ) {
+                  gatillos.setlange('en');
+                }
+
+            }
+        });
+      }
+
+
+
+
+
+      /* Shitty disqus wants this as global variables */
+      /* took me ages to debug that crappy count.js */
+      
       var disqus_shortname = '{{ site.disqus_id }}'; // required: replace example with your forum shortname
       //var disqus_developer = 1; // developer mode is on, for testing locally
       //var disqus_identifier = '/some/id';
-  
-      /* * * DON'T EDIT BELOW THIS LINE * * */
-      (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      })();
+
+      $(document).ready(function() {
+
+        (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=148719405145901";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+        /* snippet from twitter to activate all twitter buttons */
+        (function(d,s,id){
+          // var js,fjs=d.getElementsByTagName(s)[0];
+          // if(!d.getElementById(id)) {
+          //   js=d.createElement(s);
+          //   js.id=id;
+          //   js.src="//platform.twitter.com/widgets.js";
+          //   fjs.parentNode.insertBefore(js,fjs);
+
+          // my own version, because that one adds as first element on HEAD and that bothers me
+          var script=d.createElement(s);
+          script.type='text/javascript';
+          script.src="//platform.twitter.com/widgets.js";
+          script.id = id;
+          $("head").append(script);
+        }(document,"script","twitter-wjs"));
+
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    
+        /* Snippet for threads */
+        if ($('#disqus_thread').length > 0) {  // fixes annoying bug on pages that don't have the disqus_thread
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        }
+
+        /* Snippet for comment count */
+        (function () {
+          var s = document.createElement('script'); s.async = true;
+          s.type = 'text/javascript';
+          s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
+          (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+      });
 </script>
 
 </body>

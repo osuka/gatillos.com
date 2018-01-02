@@ -2,41 +2,55 @@
 layout: default
 ---
 
-<div id="last_comic">
-   {% for post in site.categories.comics limit:1 %}
-     {% assign render_navigation_above = true %}
-     {% assign render_navigation_below = true %}
-     {% assign render_comments = false %}
-     {% assign render_title_above = false %}
-     {% assign render_title_below = true %}
-     {% assign render_content = true %}
-     {% include a_comic.html %}
-   {% endfor %}
+<div id="container">
+
+  {% include subscribe.html %}
+
+  <div id="last_comic">
+     {% for post in site.tags.comics limit:1 %}
+       {% assign render_navigation_above = true %}
+       {% assign render_navigation_below = true %}
+       {% assign render_comments = false %}
+       {% assign render_title_above = false %}
+       {% assign render_title_below = true %}
+       {% assign render_content = true %}
+       {% assign render_comment_count = true %}
+       {% include a_comic.html %}
+     {% endfor %}
+  </div>
+
+  <div id="blog_header">
+    <h2><a href="{{ site.baseurl }}/blog"><span>Latest blog entries</span></a></h2>
+  </div>
+
+  <div id="latest_posts">
+      {% for post in site.categories.blog limit:4 %}
+        {% assign render_navigation_above = false %}
+        {% assign render_navigation_below = false %}
+        {% assign render_comments = false %}
+        {% assign render_comment_count = true %}
+        {% assign render_title_above = true %}
+        {% assign render_title_below = false %}
+        {% assign render_content = true %}
+        {% include a_comic.html %}
+      {% endfor %}
+  </div>
+
+  <div id="older_posts">
+    <h2><a href="{{ site.baseurl }}/blog"><span>Older blog entries</span></a></h2>
+    <ul>
+      {% for post in site.categories.blog limit:15 offset:4 %}
+        {% include post_title.html %}
+      {% endfor %}
+    </ul>
+    <a href="{{ site.baseurl }}/blog">See all blog entries</a>
+  </div>
+
 </div>
 
-<div id="blog_header">
-  <h2><a href="{{ site.baseurl }}/blog"><span>Latest blog entries</span></a></h2>
-</div>
-
-<div id="latest_posts">
-    {% for post in site.categories.blog limit:4 %}
-      {% assign render_navigation_above = false %}
-      {% assign render_navigation_below = false %}
-      {% assign render_comments = false %}
-      {% assign render_comment_count = true %}
-      {% assign render_title_above = true %}
-      {% assign render_title_below = false %}
-      {% assign render_content = true %}
-      {% include a_comic.html %}
-    {% endfor %}
-</div>
-
-<div id="older_posts">
-  <h2><a href="{{ site.baseurl }}/blog"><span>Older blog entries</span></a></h2>
-  <ul>
-    {% for post in site.categories.blog limit:15 offset:4 %}
-      {% include post_title.html %}
-    {% endfor %}
-  </ul>
-  <a href="{{ site.baseurl }}/blog">See all blog entries</a>
-</div>
+<!-- Push generated CSS rules to the HEAD tag -->
+<script>
+  $(document).ready(function() {
+    $("<style type='text/css'>{{ generated_css_rules | strip_newlines }}</style>").appendTo("head");
+  });
+</script>

@@ -1,12 +1,13 @@
 safe:         false
-pygments:     true
+highlighters: pygments
 markdown:     redcarpet
 permalink:    /:year/:month/:day/:title
-exclude:      ["CNAME", "Rakefile"]
+exclude:      ["CNAME", "Rakefile", "old.Gemfile", "old.Gemfile.lock"]
 title:        gatillos.com - gun-toting kittens
 baseurl:      /yay
-url_root:     http://gatillos.com
-import_location: http://gatillos.com/yay
+url_root:     https://gatillos.com
+url_root_nossl: http://gatillos.com
+import_location: https://gatillos.com/yay
 author:       osuka
 author_short: osuka
 author_email: webmaster@gatillos.com

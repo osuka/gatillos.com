@@ -215,8 +215,9 @@ td { vertical-align: top; }
 
 
 #header {
-  background-image: url(../gfx/site/header.png);
+  background-image: url(../gfx/site/2012-06-header-background_lo.png);
   background-repeat: no-repeat;
+  background-size: 960px 164px;
   height: 140px;
   width: 960px;
   margin: 0 auto;
@@ -225,33 +226,36 @@ td { vertical-align: top; }
 
 
 #logo a {
-  background-image: url(../gfx/site/header-gatillo-2.png);
+  background-image: url(../gfx/site/2012-06-header-gato_lo.png);
   background-repeat: no-repeat;
-  background-position: 21px 12px;
+  background-position: 4px 4px;
+  background-size: 160px 144px;
   height: 144px;
   width: 160px;
   position: absolute;
   opacity: 0.9;
 }
+
 
 #logo a:hover {
   opacity: 1;
 }
 
 #logo-2 a {
-  background-image: url(../gfx/site/header-monkey.png);
+  background-image: url(../gfx/site/2012-06-header-monkey_lo.png);
   background-repeat: no-repeat;
-  background-position: 21px 6px;
+  background-position: 0px 5px;
+  background-size: 160px 144px;
   height: 144px;
   width: 160px;
-  right: 140px;
+  right: 120px;
   position: absolute;
   opacity: 0.9;
 }
 
 #header .title {
   position: absolute;
-  margin-top: 10px;
+  margin-top: 14px;
   margin-left: 160px;
   font-family: Sunshiney, helvetica, arial, clean, sans-serif;
   font-size: 6em;
@@ -259,15 +263,49 @@ td { vertical-align: top; }
 
 #header .subtitle {
   position: absolute;
-  margin-top: 86px;
+  margin-top: 90px;
   margin-left: 160px;
   font-family: Sunshiney, helvetica, arial, clean, sans-serif;
   font-size: 1.5em;
 }
 
-#subscribe h3 {
+#header .mainlinks ul {
+  position: absolute;
+  margin-top: 31px;
+  margin-left: 378px;
+  font-family: Gochi Hand;
+  font-weight: bold;
+  font-size: 1.8em;
+  line-height: 1.1em;
+  list-style-type: none;
+}
+
+#header .mainlinks li {
+
+}
+
+#header .mainlinks a,
+#header .mainlinks a:visited {
+  text-decoration: none;
+  background-image: url("../gfx/site/2012-06-arrow-double_active_lo.png");
+  background-position: 0px 1px;
+  background-repeat: no-repeat;
+  background-size: 28px 24px;
+  padding-left: 34px;
+}
+
+#header .mainlinks a:hover {
+  background-image: url("../gfx/site/2012-06-arrow-double_inactive_lo.png");
+}
+
+#subscribe {
+  float: right;
+  margin-top: 8px;
+}
+#subscribe a {
   margin-bottom: 16px;
   font-family: Sunshiney, helvetica, arial, clean, sans-serif;
+  text-decoration: none;
 }
 
 /** blog header overlaps previous div */
@@ -293,10 +331,19 @@ td { vertical-align: top; }
   margin-bottom: 60px;
 }
 
+.twitter-like {
+  display: inline;
+}
+
+.fb-like_wrapper {
+  position: absolute;
+  display: inline;
+}
+
 .navigation {
   font-family: Gochi Hand;
-  font-size: 32px;
-  height: 40px;
+  font-size: 52px;
+  height: 70px;
 }
 
 .navigation a {
@@ -324,59 +371,111 @@ td { vertical-align: top; }
 
 
 .navigation .first {
-  background: url("../gfx/site/first.png");
-  background-position: 0px 4px;
+  background: url("../gfx/site/2012-06-navigation-first_lo.png");
+  background-position: 0px 20px;
   background-repeat: no-repeat;
-  margin-left: 100px;
-  height: 48px;
-  width: 100px;
+  background-size: 161px 48px;
+  margin-left: 24px;
+  width: 170px;
   display: block;
   position: absolute;
-  text-indent: 36px;
+  padding-left: 54px;
 }
 
 .navigation .previous {
-  background: url("../gfx/site/previous.png");
-  background-position: 0px 4px;
+  background: url("../gfx/site/2012-06-navigation-previous_lo.png");
+  background-position: 0px 20px;
   background-repeat: no-repeat;
+  background-size: 211px 48px;
   margin-left: 214px;
-  height: 48px;
-  width: 144px;
+  width: 224px;
   display: block;
   position: absolute;
-  text-indent: 29px;
-}
-
-.navigation .last {
-  background: url("../gfx/site/last.png");
-  background-position: 0px 4px;
-  background-repeat: no-repeat;
-  right: 124px;
-  height: 48px;
-  width: 100px;
-  display: block;
-  position: absolute;
-  text-indent: 8px;
+  padding-left: 30px;
 }
 
 .navigation .next {
-  background: url("../gfx/site/next.png");
-  background-position: 0px 4px;
+  background: url("../gfx/site/2012-06-navigation-next_lo.png");
+  background-position: 0px 20px;
   background-repeat: no-repeat;
-  right: 232px;
-  height: 48px;
-  width: 100px;
+  background-size: 149px 48px;
+  right: 300px;
+  width: 150px;
   display: block;
   position: absolute;
+  padding-left: 4px;
 }
+
+.navigation .last {
+  background: url("../gfx/site/2012-06-navigation-last_lo.png");
+  background-position: 0px 20px;
+  background-repeat: no-repeat;
+  background-size: 152px 48px;
+  right: 124px;
+  width: 154px;
+  display: block;
+  position: absolute;
+  padding-left: 8px;
+}
+
+
+
+.pagination {
+    font-size: 2.6em;
+    font-family: Gochi Hand;
+    font-weight: bold;
+    margin-top: 16px;
+}
+
+.pagination .page,
+.pagination .next,
+.pagination .prev {
+    padding-right: 24px;
+}
+
+.pagination .page a,
+.pagination .next a,
+.pagination .prev a {
+    text-decoration: none;
+}
+
+.pagination .current {
+  color: #447BD3;
+}
+
+/*
+.pagination .next {
+  background: url("../gfx/site/2012-06-navigation-next_lo.png");
+  background-position: 0px 20px;
+  background-repeat: no-repeat;
+  background-size: 149px 48px;
+  padding-left: 4px;
+  width: 150px;
+  display: block;
+}
+
+.pagination .prev {
+  background: url("../gfx/site/2012-06-navigation-previous_lo.png");
+  background-position: 0px 20px;
+  background-repeat: no-repeat;
+  background-size: 211px 48px;
+  width: 224px;
+  display: block;
+  position: absolute;
+  padding-left: 30px;
+}
+
+*/
+
+
 
 ul {
   list-style-type: none;
 }
 
 body {
-  background-image: url(../gfx/site/gatillos_bg.png);
-  background-position: center top;
+  background: #351f3e url(../gfx/site/gatillos_bg_stars.png) repeat;
+  background-position: -535px -60px;
 }
 
 #container {
@@ -389,12 +488,19 @@ body {
   box-shadow: 0px 0px 4px 4px #351f3e;
   margin-bottom: 10px;
   padding-top: 2px;
+  padding-bottom: 20px;
 }
 
 footer {
+  width: 920px;
+  margin: 0px auto;
+  background-color: white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  box-shadow: 0px 0px 4px 4px #351f3e;
   border-top: 1px solid #999;
   margin-top: 30px;
-  padding: 10px 0;
+  padding: 10px 20px;
   color: #666;
   line-height: 1.785em;
   font-family: helvetica, arial, clean, sans-serif;
@@ -478,8 +584,8 @@ h1 img, h2 img, h3 img {
   padding-right: 20px;
 }
 
-.post img {
-  display: block;
+.post img,
+.post .generated_img_div {
   margin: 10px auto 20px auto;
   background-color: white;
   border: 1px solid #ccc;
@@ -487,6 +593,15 @@ h1 img, h2 img, h3 img {
   padding: 8px;
 }
 
+.post .generated_img_div {
+  /* in generated divs, comic image is in the background instead of in an img tag */
+  background-position: 8px 8px;
+}
+
+.post-image img {
+  display: block;
+}
+  
 .post .comic_image {
   text-align: center;
 }
@@ -535,10 +650,14 @@ h1 img, h2 img, h3 img {
 }
 
 .archive .post .comments_link {
-  margin-top: -20px;
-  margin-right: 50px;
-  float: right;
- 
+  margin-right: 32px;
+  margin-top: 0px;
+}
+
+/* since there is no content under the image, push the next element a bit up
+(for the fb, twitter like buttons and comments) */
+.archive .comic_image {
+  margin-bottom: -16px;
 }
 
 /* Post preview styles (list of posts on home page) */
@@ -562,7 +681,7 @@ h1 img, h2 img, h3 img {
 }
 
 .post_preview img {
-  display: block;
+  /*display: */block;
   margin: 30px auto;
   background-color: white;
   border: 1px solid #ccc;
@@ -622,6 +741,7 @@ code.bash {
 nav li {
   float: right;
   margin-right: 5px;
+  margin-top: 20px;
 }
 
 nav li a {
@@ -680,9 +800,6 @@ nav li a:hover {
    ========================================================================== */
 
 @media only screen and (max-width: 750px) {
-  #container {
-  }
-
   h1 {
   }
 
@@ -735,3 +852,133 @@ nav li a:hover {
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
 }
+
+
+
+/* ************ things that are disabled based on pixel ratio */
+
+/* default resolution */
+  .only_hires {
+    display: none;
+   }  
+   .only_hires_inline {
+    display: none
+   }
+
+  .only_lores {
+    display: block;
+   }
+
+  .only_lores_inline {
+    display: inline;
+   }
+
+/* retina display tweaks */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .only_hires {
+    display: block;
+   }
+  .only_hires_inline {
+    display: inline;
+   }
+
+  #header {
+    background-image: url(../gfx/site/2012-06-header-background_hi.png);
+  }
+
+  #logo a {
+    background-image: url(../gfx/site/2012-06-header-gato_hi.png);
+  }
+
+  #logo-2 a {
+    background-image: url(../gfx/site/2012-06-header-monkey_hi.png);
+  }
+
+  #header .mainlinks a,
+  #header .mainlinks a:visited {
+    background-image: url("../gfx/site/2012-06-arrow-double_active_hi.png");
+  }
+
+  #header .mainlinks a:hover {
+    background-image: url("../gfx/site/2012-06-arrow-double_inactive_hi.png");
+  }
+
+  .navigation .first {
+    background-image: url("../gfx/site/2012-06-navigation-first_hi.png");
+  }
+
+  .navigation .previous {
+    background-image: url("../gfx/site/2012-06-navigation-previous_hi.png");
+  }
+
+  .navigation .last {
+    background-image: url("../gfx/site/2012-06-navigation-last_hi.png");
+  }
+
+  .navigation .next {
+    background-image: url("../gfx/site/2012-06-navigation-next_hi.png");
+  }
+
+  .only_lores {
+    display: none;
+   }
+  .only_lores_inline {
+    display: none;
+   }
+}
+
+/* ********************************************************************** */
+/* Basic multi-language support. */
+/* ********************************************************************** */
+
+/* By default hide all languages other than english */
+.multilingual .es {
+  display: none;
+}
+.multilingual .ca {
+  display: none;
+}
+
+/* enable english as fallback */
+.multilingual .en { 
+  display: inline;
+}
+
+/* Now, for every language two rules, one to disabled default, one to enable language */
+.lang_es .multilingual .es {
+  display: inline;
+}
+.lang_es .multilingual .en {
+  display: none
+}
+
+.lang_ca .multilingual .ca {
+  display: inline;
+}
+.lang_ca .multilingual .en {
+  display: none
+}
+
+
+/* Buttons under the comic */
+.language_toolbar {
+  float: right;
+}
+.language_toolbar a {
+  color: #c1a2ce;
+  margin-left: 8px;
+  margin-right: 8px;
+  font-size: 1.1em;
+  text-decoration: none;
+}
+.lang_es .language_toolbar .select_es {
+  font-weight: bold;
+}
+.lang_ca .language_toolbar .select_ca {
+  font-weight: bold;
+}
+.lang_en .language_toolbar .select_en {
+  font-weight: bold;
+}
+

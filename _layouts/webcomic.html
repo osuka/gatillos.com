@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign generated_css_rules = '' %}
+
 {% assign render_navigation_above = true %}
 {% assign render_navigation_below = true %}
 {% assign render_comments = true %}
@@ -9,5 +11,16 @@ layout: default
 {% assign render_title_below = true %}
 {% assign render_content = true %}
 {% assign post = page %}
-{% include a_comic.html %}
+{% assign post_content = content %} 
 
+<div id="container">
+{% include subscribe.html %}
+{% include a_comic.html %}
+</div>
+
+<!-- Push generated CSS rules to the HEAD tag -->
+<script>
+  $(document).ready(function() {
+    $("<style type='text/css'>{{ generated_css_rules | strip_newlines }}</style>").prependTo("head");
+  });
+</script>

@@ -5,7 +5,7 @@ layout: nil
 <feed xmlns="http://www.w3.org/2005/Atom">
  
  <title>{{ site.title | xml_escape }}</title>
- <link href="http://feeds.feedburner.com/{{ site.feedburner_id }}" rel="self"/>
+ <link href="https://feeds.feedburner.com/{{ site.feedburner_id }}" rel="self"/>
  <link href="{{ site.url_root}}{{ site.baseurl }}"/>
  <updated>{{ site.time | date_to_xmlschema }}</updated>
  <id>{{ site.url_root }}{{ site.baseurl }}</id>
@@ -14,7 +14,7 @@ layout: nil
    <email>{{ site.author_email }}</email>
  </author>
 
- {% for post in site.posts %}
+ {% for post in site.posts limit:10 %}
  <entry>
    <title>{{ post.title | xml_escape }}</title>
    <link href="{{ site.url_root}}{{ site.baseurl }}{{ post.url }}"/>

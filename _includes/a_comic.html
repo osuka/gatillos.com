@@ -12,6 +12,9 @@
 
     Instead, what we will do is traverse an array with all posts of the current category, looking for
     the one we are in right now. Once found, we now the previous/next ones.
+
+    Returns the variable 'generated_css_rules' set with rules if needed. Add them inside a style tag.
+
 *******************************************
 {% endcomment %}
 
@@ -63,9 +66,17 @@
   {% if render_title_above %}
   <div class="post_title">
     <h2>
-      <a class="next" href="{{ site.baseurl }}{{post.url}}" title="{{post.title}}">
-       {{ post.title }} <small>{{ post.date || date_to_string }}</small>
-      </a>
+      {% if post.languages %}
+        <!-- english and something else -->
+        <a class="next" href="{{ site.baseurl }}{{post.url}}" title="{{post.title}}">
+         <span class="multilingual"><span class="en">{{ post.title }}</span>{% if post.languages contains 'es' %}<span class="es">{{ post.title_es }}</span>{% endif %}{% if post.languages contains 'ca' %}<span class="ca">{{ post.title_ca }}</span>{% endif %}</span> <small>{{ post.date || date_to_string }}</small>
+        </a>
+      {% else %}
+        <!-- only english available -->
+        <a class="next" href="{{ site.baseurl }}{{post.url}}" title="{{post.title}}">
+         {{ post.title }} <small>{{ post.date || date_to_string }}</small>
+        </a>
+      {% endif %}
     </h2>
   </div>
   {% endif %}
@@ -73,15 +84,102 @@
   {% if post.image %}
     <div class="comic_image">
       <a href="{{ site.baseurl }}{{post.url}}" title="{{post.title}}">
-        <img src='{{ post.image }}' alt='{{ post.image }}' {{ post.image | remove_first:site.baseurl | prepend:'..' | image_dimensions }}/> 
+        {% capture post_image_filename %}{{ post.image | remove_first:site.baseurl | prepend:'..' }}{% endcapture %}
+        {% capture has_hires_version %}{{  post_image_filename || hires_exists }}{% endcapture %}
+        {% capture post_image_dimensions %}{{ post_image_filename | image_dimensions }}{% endcapture %}
+        {% capture post_image_dimensions_css_rules %}{{ post_image_filename | image_dimensions_css_rules }}{% endcapture %}
+        {% capture post_image_dimensions_background_css_rule %}{{ post_image_filename | image_dimensions_background_css_rule }}{% endcapture %}
+        {% capture post_image_css_id %}{{ 'comicimage' | hires_uniqueid }}{% endcapture %}
+
+        {% if has_hires_version == 'true' %}
+          <!-- standard and hi-def versions -->
+
+{% comment %}
+****** If we don't want to do the CSS version, we can just include the hires version *******
+****** Having two images with two backgrounds and choosing one in CSS is elegant but images were invisible for facebook
+****** and probably for everything else in the world.
+          <img src='{{ post.image | hires_name }}' alt='{{ post.image }}' {{ post_image_dimensions }}> 
+{% endcomment %}
+
+
+          <!-- Create a div and then two rules for hi/lo resolution -->
+          <div id="{{post_image_css_id}}" class="generated_img_div"></div>
+          
+          <!-- This appends a new rule to the list of 'generated_css_rules' -->
+{% capture generated_css_rules %}{{ generated_css_rules }}
+#{{post_image_css_id}} { \n
+  background-image: url({{ post.image }});  \n
+  background-repeat: no-repeat; \n
+  {{ post_image_dimensions_background_css_rule }} \n
+  {{ post_image_dimensions_css_rules }} \n
+} \n
+\n
+{% if post.languages contains 'es' %}
+.lang_es #{{post_image_css_id}} {\n
+  background-image: url({{ post.image_es }});  \n
+} \n
+{% endif %}
+{% if post.languages contains 'ca' %}
+.lang_ca #{{post_image_css_id}} {\n
+  background-image: url({{ post.image_ca }});  \n
+} \n
+{% endif %}
+\n
+@media only screen and (-webkit-min-device-pixel-ratio: 2) { \n
+  #{{post_image_css_id}} { \n
+    background-image: url({{post.image| hires_name}}); \n
+  } \n
+\n
+  {% if post.languages contains 'es' %}
+  .lang_es #{{post_image_css_id}} {\n
+    background-image: url({{ post.image_es | hires_name }});  \n
+  } \n
+  {% endif %}\n
+  {% if post.languages contains 'ca' %}
+  .lang_ca #{{post_image_css_id}} {\n
+    background-image: url({{ post.image_ca | hires_name }});  \n
+  } \n
+  {% endif %}\n
+} \n
+{% endcapture %}
+
+          <!-- ^^^ The layout definition includes code to add those generated rules to the HEAD tag -->
+          <!-- but that needs javascript. Just in case there is no javascript at all, we put here a default image -->
+          <noscript><img src='{{ post.image }}' alt='{{ post.image }}' {{ post_image_dimensions }}></noscript>
+
+        {% else %}
+          <!-- only one version, no need for hacks -->
+          <img src='{{ post.image }}' alt='{{ post.image }}' {{ post_image_dimensions }}> 
+        {% endif %}
       </a>
     </div>
+    <div class="twitter-like">
+      <a href="https://twitter.com/share" class="twitter-share-button" data-url="{{ site.url_root}}{{ site.baseurl }}{{ post.url }}/" data-counturl="{{ site.url_root}}{{ site.baseurl }}{{ post.url }}/" data-text="{{ post.title }}" data-count="horizontal">Tweet</a>
+    </div>
+    <div class="fb-like_wrapper">
+      <div class="fb-like" data-href="{{ site.url_root_nossl }}{{ site.baseurl }}{{ post.url }}/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+    </div>
+      {% if post.languages %}
+        <div class="language_toolbar">
+        {% if post.languages %}<a href="javascript:gatillos.setlang('es')" class="select_es">Versión en español</a> | {% endif %}{% if post.languages contains 'ca' %}<a href="javascript:gatillos.setlang('ca')" class="select_ca">Versió en català</a> | {% endif %}<a href="javascript:gatillos.setlang('en')" class="select_en">English version</a>
+      </div>
+      {% endif %}
   {% endif %}
 
   {% if render_title_below %}
   <div class="post_title">
     <h2>
-     {{ post.title }} <small>{{ post.date || date_to_string }}</small>
+      {% if post.languages %}
+        <!-- english and something else -->
+        <a class="next" href="{{ site.baseurl }}{{post.url}}" title="{{post.title}}">
+         <span class="multilingual"><span class="en">{{ post.title }}</span>{% if post.languages contains 'es' %}<span class="es">{{ post.title_es }}</span>{% endif %}{% if post.languages contains 'ca' %}<span class="ca">{{ post.title_ca }}</span>{% endif %}</span> <small>{{ post.date || date_to_string }}</small>
+        </a>
+      {% else %}
+        <!-- only english available -->
+        <a class="next" href="{{ site.baseurl }}{{post.url}}" title="{{post.title}}">
+         {{ post.title }} <small>{{ post.date || date_to_string }}</small>
+        </a>
+      {% endif %}
     </h2>
   </div>
   {% endif %}
@@ -89,7 +187,7 @@
   {% if render_content %}
 
   <div class="main">
-    {{ post.content }}
+    {% if post_content %}{{ post_content }}{% else %}{{ post.content }}{% endif %}
   </div>
 
   {% endif %}
@@ -116,7 +214,7 @@
   {% endif %}
 
   {% if render_comment_count %}
-    <div class="comments_link"><a href="{{ site.baseurl }}{{ post.url }}/#disqus_thread">Click to view comments</a></div>
+    <div class="comments_link"><a href="{{ site.url_root}}{{ site.baseurl }}{{ post.url }}/#disqus_thread">Click to view comments</a></div>
   {% endif %}
 
 </div>
@@ -125,8 +223,6 @@
 
   <h2>Comments</h2>
   <div id="disqus_thread"></div>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
 {% endif %}
-
-

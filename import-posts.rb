@@ -15,7 +15,7 @@ def parse_content(postid, content)
   
   # caption items
   # example:
-  # [caption id="attachment_6" align="aligncenter" width="212" caption="Some pencil drawing, then drafting a general layout with wacom and Inkscape."]<a href="http://gatillos.com/yay/wp-content/uploads/2010/03/01-page-b.jpg"><img class="size-medium wp-image-6" title="01 page-b" src="http://gatillos.com/yay/wp-content/uploads/2010/03/01-page-b-212x300.jpg" alt="" width="212" height="300" /></a>[/caption]
+  # [caption id="attachment_6" align="aligncenter" width="212" caption="Some pencil drawing, then drafting a general layout with wacom and Inkscape."]<a href="https://gatillos.com/yay/wp-content/uploads/2010/03/01-page-b.jpg"><img class="size-medium wp-image-6" title="01 page-b" src="https://gatillos.com/yay/wp-content/uploads/2010/03/01-page-b-212x300.jpg" alt="" width="212" height="300" /></a>[/caption]
   
   # transform all [caption] wp tags into html,  \1 is the caption, \2 is the body
   content = content.gsub( /\[caption [^\]]+ caption=\"([^\"]*)\"\](.*)\[\/caption\]/, '<div class="post-image">\2</div><div class="post-image-caption">\1</div>' ) 
