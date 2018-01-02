@@ -1,9 +1,9 @@
 ---
-layout: nil
+layout: null
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
- 
+
  <title>{{ site.title | xml_escape }}</title>
  <link href="https://feeds.feedburner.com/{{ site.feedburner_id }}" rel="self"/>
  <link href="{{ site.url_root}}{{ site.baseurl }}"/>
@@ -28,5 +28,5 @@ layout: nil
       {{ post.content | xml_escape }}</content>
  </entry>
  {% endfor %}
- 
+
 </feed>

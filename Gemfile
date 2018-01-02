@@ -1,7 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'jekyll','2.5.1'
-#gem 'redcarpet', '1.17.2'
+gem 'jekyll','3.6.2'
+gem 'jekyll-paginate'
+gem 'redcarpet'
 
 # only for parsing wordpress
 #gem 'nokogiri'

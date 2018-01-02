@@ -1,5 +1,5 @@
 safe:         false
-highlighters: pygments
+#highlighters: pygments
 markdown:     redcarpet
 permalink:    /:year/:month/:day/:title
 exclude:      ["CNAME", "Rakefile", "old.Gemfile", "old.Gemfile.lock"]
@@ -15,3 +15,4 @@ analytics_ua: UA-15027129-1
 feedburner_id: gatillos
 disqus_id:     gatillos
 paginate:     10
+plugins: [jekyll-paginate]
